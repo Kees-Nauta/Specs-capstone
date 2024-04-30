@@ -31,8 +31,6 @@ public class AppointmentDto implements Serializable {
         if (appointment.getService() != null){
             this.service = appointment.getService();
         }
-        if (appointment.getComplete() != null){
-            this.complete = appointment.getComplete();
-        }
+        this.complete = appointment.getComplete();
     }
 }

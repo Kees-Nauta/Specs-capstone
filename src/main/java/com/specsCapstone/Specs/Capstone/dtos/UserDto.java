@@ -58,11 +58,10 @@ public class UserDto implements Serializable {
         if (user.getAddress() != null){
             this.address = user.getAddress();
         }
-        if (user.getGroomer() != null){
-            this.groomer = user.getGroomer();
-        }
-        if (user.getAdmin() != null){
-            this.admin = user.getAdmin();
-        }
+
+        this.groomer = user.getGroomer();
+
+        this.admin = user.getAdmin();
+
     }
 }
