@@ -49,7 +49,7 @@ public class User {
     @Column
     private Boolean admin;
 
-    @OneToMany(mappedBy = "appointmentUser", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "groomer", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JsonManagedReference
     private Set<Appointment> appointmentSet = new HashSet<>();
 

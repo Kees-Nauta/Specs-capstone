@@ -26,12 +26,9 @@ public class Appointment {
     @Column
     private Boolean complete;
 
-    @Column
-    private Long groomer_id;
-
     @ManyToOne
     @JsonBackReference
-    private User appointmentUser;
+    private User groomer;
 
     @ManyToOne
     @JsonBackReference
@@ -45,9 +42,10 @@ public class Appointment {
         if (appointmentDto.getService() != null){
             this.service = appointmentDto.getService();
         }
-        if (appointmentDto.getComplete() != null){
             this.complete = appointmentDto.getComplete();
-        }
+
     }
+
+
 
 }
