@@ -50,11 +50,11 @@ public class User {
     private Boolean admin;
 
     @OneToMany(mappedBy = "groomer", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JsonManagedReference
+    @JsonManagedReference(value = "groomer_appointment")
     private Set<Appointment> appointmentSet = new HashSet<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JsonManagedReference
+    @JsonManagedReference(value = "user_dog")
     private Set<Dog> dogSet = new HashSet<>();
 
     public User(UserDto userDto) {
@@ -87,5 +87,4 @@ public class User {
             this.admin = userDto.getAdmin();
         }
     }
-
 }

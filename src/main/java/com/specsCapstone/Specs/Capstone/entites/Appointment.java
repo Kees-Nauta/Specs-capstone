@@ -26,8 +26,11 @@ public class Appointment {
     @Column
     private Boolean complete;
 
+    @Column
+    private String date;
+
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "groomer_appointment")
     private User groomer;
 
     @ManyToOne

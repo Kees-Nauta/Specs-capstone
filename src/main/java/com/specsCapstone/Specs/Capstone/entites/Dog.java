@@ -31,7 +31,7 @@ public class Dog {
     private String weight;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "user_dog")
     private User user;
 
     @OneToMany(mappedBy = "dog", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})

@@ -16,6 +16,9 @@ public interface AppointmentService {
     @Transactional
     void updateAppointmentTimeById(AppointmentDto appointmentDto);
 
+    @Transactional
+    void updateAppointmentDateById(AppointmentDto appointmentDto);
+
     List<AppointmentDto> getAllAppointmentsByDogId(Long dogId);
 
     Optional<AppointmentDto> getAppointmentById(Long appointmentId);

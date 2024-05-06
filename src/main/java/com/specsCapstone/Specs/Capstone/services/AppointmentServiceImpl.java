@@ -55,6 +55,16 @@ public class AppointmentServiceImpl implements AppointmentService {
         });
     }
 
+    @Override
+    @Transactional
+    public  void updateAppointmentDateById(AppointmentDto appointmentDto) {
+        Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointmentDto.getId());
+        appointmentOptional.ifPresent(appointment -> {
+            appointment.setDate(appointmentDto.getDate());
+            appointmentRepository.saveAndFlush(appointment);
+        });
+    }
+
 
     @Override
     public List<AppointmentDto> getAllAppointmentsByDogId(Long dogId){
