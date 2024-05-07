@@ -30,7 +30,6 @@ public class UserDto implements Serializable {
     private String address;
     private Boolean groomer;
     private Boolean admin;
-    private Set<AppointmentDto> appointmentDtoSet = new HashSet<>();
     private Set<DogDto> dogDtoSet = new HashSet<>();
 
     public UserDto(User user) {

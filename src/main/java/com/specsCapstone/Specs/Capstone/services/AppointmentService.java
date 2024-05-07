@@ -14,12 +14,13 @@ public interface AppointmentService {
     void deleteAppointmentById(Long appointmentId);
 
     @Transactional
-    void updateAppointmentTimeById(AppointmentDto appointmentDto);
+    void updateAppointmentById(AppointmentDto appointmentDto);
 
-    @Transactional
-    void updateAppointmentDateById(AppointmentDto appointmentDto);
+   
 
     List<AppointmentDto> getAllAppointmentsByDogId(Long dogId);
+
+    List<AppointmentDto> getAllAppointmentsByGroomerName(String groomerName);
 
     Optional<AppointmentDto> getAppointmentById(Long appointmentId);
 }

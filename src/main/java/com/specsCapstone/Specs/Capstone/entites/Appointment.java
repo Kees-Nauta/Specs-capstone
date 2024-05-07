@@ -29,9 +29,8 @@ public class Appointment {
     @Column
     private String date;
 
-    @ManyToOne
-    @JsonBackReference(value = "groomer_appointment")
-    private User groomer;
+    @Column
+    private String groomerName;
 
     @ManyToOne
     @JsonBackReference
@@ -45,8 +44,13 @@ public class Appointment {
         if (appointmentDto.getService() != null){
             this.service = appointmentDto.getService();
         }
-            this.complete = appointmentDto.getComplete();
-
+        if (appointmentDto.getDate() != null){
+            this.date = appointmentDto.getDate();
+        }
+        if (appointmentDto.getGroomerName() != null){
+            this.groomerName = appointmentDto.getGroomerName();
+        }
+        this.complete = appointmentDto.getComplete();
     }
 
 

@@ -25,7 +25,7 @@ public class User {
     @Column
     private String username;
 
-    @Column
+    @Column(unique = true)
     private String password_hash;
 
     @Column
@@ -49,9 +49,6 @@ public class User {
     @Column
     private Boolean admin;
 
-    @OneToMany(mappedBy = "groomer", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JsonManagedReference(value = "groomer_appointment")
-    private Set<Appointment> appointmentSet = new HashSet<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JsonManagedReference(value = "user_dog")
@@ -79,9 +76,6 @@ public class User {
         }
         if (userDto.getAddress() != null){
             this.address = userDto.getAddress();
-        }
-        if (userDto.getGroomer() != null){
-            this.groomer = userDto.getGroomer();
         }
         if (userDto.getAdmin() != null){
             this.admin = userDto.getAdmin();

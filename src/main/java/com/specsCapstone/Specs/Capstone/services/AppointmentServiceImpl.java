@@ -47,23 +47,18 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Override
     @Transactional
-    public  void updateAppointmentTimeById(AppointmentDto appointmentDto) {
+    public  void updateAppointmentById(AppointmentDto appointmentDto) {
         Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointmentDto.getId());
         appointmentOptional.ifPresent(appointment -> {
             appointment.setTime(appointmentDto.getTime());
+            appointment.setDate(appointmentDto.getDate());
+            appointment.setService(appointmentDto.getService());
+            appointment.setGroomerName(appointmentDto.getGroomerName());
+            appointment.setComplete(appointmentDto.getComplete());
             appointmentRepository.saveAndFlush(appointment);
         });
     }
 
-    @Override
-    @Transactional
-    public  void updateAppointmentDateById(AppointmentDto appointmentDto) {
-        Optional<Appointment> appointmentOptional = appointmentRepository.findById(appointmentDto.getId());
-        appointmentOptional.ifPresent(appointment -> {
-            appointment.setDate(appointmentDto.getDate());
-            appointmentRepository.saveAndFlush(appointment);
-        });
-    }
 
 
     @Override
@@ -71,6 +66,16 @@ public class AppointmentServiceImpl implements AppointmentService {
         Optional<Dog> dogOptional = dogRepository.findById(dogId);
         if (dogOptional.isPresent()){
             List<Appointment> appointmentList = appointmentRepository.findAllByDogEquals(dogOptional.get());
+            return appointmentList.stream().map(appointment -> new AppointmentDto(appointment)).collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<AppointmentDto> getAllAppointmentsByGroomerName(String groomerName){
+        Optional<User> userOptional = userRepository.findByUsername(groomerName);
+        if (userOptional.isPresent()){
+            List<Appointment> appointmentList = appointmentRepository.findAllByGroomerName(String.valueOf(userOptional.get()));
             return appointmentList.stream().map(appointment -> new AppointmentDto(appointment)).collect(Collectors.toList());
         }
         return Collections.emptyList();

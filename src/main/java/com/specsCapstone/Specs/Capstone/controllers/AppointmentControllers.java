@@ -25,14 +25,9 @@ public class AppointmentControllers {
         appointmentService.deleteAppointmentById(appointmentId);
     }
 
-    @PutMapping
-    public void updateAppointmentTimeById(@PathVariable AppointmentDto appointmentDto){
-        appointmentService.updateAppointmentTimeById(appointmentDto);
-    }
-
-    @PutMapping
-    public void updateAppointmentDateById(@PathVariable AppointmentDto appointmentDto){
-        appointmentService.updateAppointmentDateById(appointmentDto);
+    @PutMapping("/{appointmentId}")
+    public void updateAppointmentById(@RequestBody AppointmentDto appointmentDto){
+        appointmentService.updateAppointmentById(appointmentDto);
     }
 
     @GetMapping("/{appointmentId}")
@@ -40,7 +35,12 @@ public class AppointmentControllers {
         return appointmentService.getAppointmentById(appointmentId);
     }
 
-    @GetMapping("/dogs/dogId")
+    @GetMapping("/dogs/{groomerName}")
+    public List<AppointmentDto> getAllAppointmentsByGroomerName(Long groomerName){
+        return appointmentService.getAllAppointmentsByGroomerName(String.valueOf(groomerName));
+    }
+
+    @GetMapping("/dogs/{dogId}")
     public List<AppointmentDto> getAllAppointmentsByDogId(Long dogId){
         return appointmentService.getAllAppointmentsByDogId(dogId);
     }

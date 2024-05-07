@@ -17,9 +17,8 @@ public class AppointmentDto implements Serializable {
     private Long time;
     private String service;
     private Boolean complete;
-    private Long groomer_id;
     private DogDto dogDto;
-    private UserDto userDto;
+    private String groomerName;
     private String date;
 
     public AppointmentDto(Appointment appointment){
@@ -34,6 +33,9 @@ public class AppointmentDto implements Serializable {
         }
         if (appointment.getService() != null){
             this.service = appointment.getService();
+        }
+        if (appointment.getGroomerName() != null){
+            this.groomerName = appointment.getGroomerName();
         }
         this.complete = appointment.getComplete();
     }

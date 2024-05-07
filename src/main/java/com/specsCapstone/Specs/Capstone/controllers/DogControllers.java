@@ -13,7 +13,7 @@ public class DogControllers {
     @Autowired
     private DogService dogService;
 
-    @GetMapping("/user/{userId}")
+    @GetMapping("/users/{userId}")
     public List<DogDto> getAllDogsByUserId(@PathVariable Long userId){
         return dogService.getAllDogsByUserId(userId);
     }
@@ -23,7 +23,7 @@ public class DogControllers {
         dogService.deleteDogById(dogId);
     }
 
-    @PostMapping("/user/{userId}")
+    @PostMapping("/users/{userId}")
     public void addDog(@RequestBody DogDto dogDto, @PathVariable Long userId){
         dogService.addDog(dogDto, userId);
     }
