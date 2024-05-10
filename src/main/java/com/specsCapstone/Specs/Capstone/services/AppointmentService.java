@@ -14,6 +14,9 @@ public interface AppointmentService {
     void deleteAppointmentById(Long appointmentId);
 
     @Transactional
+    void deleteAppointmentByDogId(Long dogId);
+
+    @Transactional
     void updateAppointmentById(AppointmentDto appointmentDto);
 
    

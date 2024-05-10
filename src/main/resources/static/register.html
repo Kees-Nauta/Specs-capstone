@@ -14,22 +14,27 @@
     </header>
 
     <section id="body-section">
-        <header id="body-section-header">
-            <p id="body-section-header-text">Register</p>
-        </header>
-        <div id="body-section-body">
-            <input type="text" id="username-input" class="body-section-body-input" placeholder="Username">
-            <input type="text" id="password-input" class="body-section-body-input" placeholder="Password">
-            <input type="text" id="first-name-input" class="body-section-body-input" placeholder="First name">
-            <input type="text" id="last-name-input" class="body-section-body-input" placeholder="Last name">
-            <input type="text" id="email-input" class="body-section-body-input" placeholder="Email">
-            <input type="text" id="phone-number-input" class="body-section-body-input" placeholder="123-456-7890" pattern="[0-9]{3}-">
-            <input type="text" id="address-input" class="body-section-body-input" placeholder="Address">
-        </div>
-        <footer id="body-section-footer">
-            <a href="./login.html"><button id="submit-btn">Submit</button></a>
-        </footer>
+        <form id="register-form">
+            <header id="body-section-header">
+                <p id="body-section-header-text">Register</p>
+            </header>
+            <div id="body-section-body">
+                <input type="text" id="username-input" class="body-section-body-input" placeholder="Username">
+                <input type="text" id="password-input" class="body-section-body-input" placeholder="Password">
+                <input type="text" id="first-name-input" class="body-section-body-input" placeholder="First name">
+                <input type="text" id="last-name-input" class="body-section-body-input" placeholder="Last name">
+                <input type="text" id="email-input" class="body-section-body-input" placeholder="Email">
+                <input type="text" id="phone-number-input" class="body-section-body-input" placeholder="123-456-7890" >
+                <!-- pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" throw this in later above  -->
+                <input type="tel" id="address-input" class="body-section-body-input" placeholder="Address">
+            </div>
+            <footer id="body-section-footer">
+                <button id="submit-btn" type="submit">Submit</button>
+            </footer>
+        </form>
     </section>
+
+    <script src="./javascript/register.js"></script>
     
 </body>
 </html>

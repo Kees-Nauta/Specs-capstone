@@ -44,6 +44,13 @@ public class AppointmentServiceImpl implements AppointmentService {
         appointmentOptional.ifPresent(appointment -> appointmentRepository.delete(appointment));
     }
 
+    @Override
+    @Transactional
+    public void deleteAppointmentByDogId(Long dogId) {
+        Optional<Appointment> appointmentOptional = appointmentRepository.findById(dogId);
+        appointmentOptional.ifPresent(appointment -> appointmentRepository.delete(appointment));
+    }
+
 
     @Override
     @Transactional

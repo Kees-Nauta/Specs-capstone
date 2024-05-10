@@ -25,6 +25,11 @@ public class AppointmentControllers {
         appointmentService.deleteAppointmentById(appointmentId);
     }
 
+    @DeleteMapping("/{dogId}")
+    public void deleteAppointmentByDogId(@PathVariable Long dogId){
+        appointmentService.deleteAppointmentByDogId(dogId);
+    }
+
     @PutMapping("/{appointmentId}")
     public void updateAppointmentById(@RequestBody AppointmentDto appointmentDto){
         appointmentService.updateAppointmentById(appointmentDto);
