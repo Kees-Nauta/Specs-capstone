@@ -26,4 +26,6 @@ public interface AppointmentService {
     List<AppointmentDto> getAllAppointmentsByGroomerName(String groomerName);
 
     Optional<AppointmentDto> getAppointmentById(Long appointmentId);
+
+    List<AppointmentDto> getAllAppointments();
 }

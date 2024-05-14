@@ -98,5 +98,11 @@ public class AppointmentServiceImpl implements AppointmentService {
         return Optional.empty();
     }
 
+    @Override
+    public List<AppointmentDto> getAllAppointments() {
+        List<Appointment> appointments = appointmentRepository.findAll();
+        return appointments.stream().map(AppointmentDto::new).collect(Collectors.toList());
+    }
+
 
 }

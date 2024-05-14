@@ -46,4 +46,15 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+    @Override
+    public boolean checkAdminStatus(Long userId) {
+        return false;
+    }
+
+    @Override
+    public Optional<UserDto> getUserById(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        return userOptional.map(UserDto::new);
+    }
+
 }

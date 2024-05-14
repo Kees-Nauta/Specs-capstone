@@ -81,4 +81,8 @@ public class User {
             this.admin = userDto.getAdmin();
         }
     }
+
+    public boolean isAdmin() {
+        return admin != null && admin;
+    }
 }

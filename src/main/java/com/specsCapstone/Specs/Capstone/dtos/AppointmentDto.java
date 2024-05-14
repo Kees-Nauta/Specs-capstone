@@ -21,6 +21,7 @@ public class AppointmentDto implements Serializable {
     private String groomerName;
     private String date;
 
+
     public AppointmentDto(Appointment appointment){
         if (appointment.getId() != null){
             this.id = appointment.getId();

@@ -20,15 +20,62 @@ function handleLogout() {
     }
 }
 
-// async function getAllDogsByUserId(userId) {
-//     await fetch(`${baseUrl}dogs/users/${userId}`, {
-//         method: "GET",
-//         headers: headers
-//     })
-//         .then(response => response.json())
-//         // .then(data => createCards(data))
-//         .catch(err => console.error(err))
-// }
+
+
+async function loadAppointments() {
+    try {
+        const userData = await getUserById(userId);
+        const cornerName = document.getElementById('corner-name');
+        cornerName.textContent = userData.first_name;
+        
+        if (userData.admin === true) {
+            await getAllAppointments();
+        } else {
+            await getAllDogsByUserId(userId);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function getUserById(userId) {
+    
+    const response = await fetch(`${baseUrl}users/${userId}`, {
+        method: "GET",
+        headers: headers
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    } 
+
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+        const userData = await response.json();
+        console.log(userData.admin)
+        return userData;
+    } else {
+        throw new Error("Invalid JSON response from server");
+    }
+}
+
+async function getAllAppointments() {
+    try {
+        const response = await fetch(`${baseUrl}appointments/all`, {
+            method: 'GET',
+            headers: headers
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        createAdminCards(data)
+        return data;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+}
 
 async function getAllDogsByUserId(userId) {
     try {
@@ -37,56 +84,58 @@ async function getAllDogsByUserId(userId) {
             headers: headers
         });
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            throw new Error(`Failed to fetch dogs for user with ID ${userId}`);
         }
         const data = await response.json();
-        const appointmentsResponse = await fetch(`${baseUrl}appointments`);
-        if (!appointmentsResponse.ok) {
-            throw new Error(`HTTP error! Status: ${appointmentsResponse.status}`);
-        }
-        const appointmentsData = await appointmentsResponse.json();
-        renderDogs(data, appointmentsData);
-    } catch (error) {
-        console.error(error);
+        createCards(data);
+        console.log(data)
+        return data;
+    } catch (err) {
+        console.error(err);
+        return null; 
     }
 }
 
+
 async function getAllAppointmentsByDogId(dogId) {
-    await fetch(`${baseUrl}/dogs/${dogId}`, {
-        method: "GET",
-        headers: headers
-    })
-        .then(response => response.json())
-    
-        .catch(err => console.error(err))
+    try {
+        const response = await fetch(`${baseUrl}appointments/dogs/${dogId}`, {
+            method: "GET",
+            headers: headers
+        });
+        if (!response.ok) {
+            throw new Error(`Failed to fetch appointments for dog with ID ${dogId}`);
+        }
+        
+        return await response.json();
+    } catch (err) {
+        console.error(err);
+        return null; 
+    }
 }
 
 async function deleteDogByDogId(dogId) {
-    await fetch(`${baseUrl}/appointments/${dogId}`, {
-        method: "DELETE",
-        headers: headers
-    })
-        .catch(err => console.error(err))
-
-    return getDogs(userId);
+    try {
+        await fetch(`${baseUrl}dogs/${dogId}`, {
+            method: "DELETE",
+            headers: headers
+        });
+        return getAllDogsByUserId(userId);
+    } catch (err) {
+        console.error(err);
+    }
 }
 
-// async function deleteAppointmentByDogId(dogId) {
-//     await fetch(baseUrl + dogId, {
-//         method: "DELETE",
-//         headers: headers
-//     })
-//         .catch(err => console.error(err))
-
-//     return getAppointments(dogId);
-// }
-
 async function deleteAppointmentById(appointmentId) {
-    await fetch(baseUrl + appointmentId, {
-        method: "DELETE",
-        headers: headers
-    })
-        .catch(err => console.error(err))
+    try {
+        await fetch(`${baseUrl}appointments/${appointmentId}`, {
+            method: "DELETE",
+            headers: headers
+        });
+        return getAllDogsByUserId(userId);
+    } catch (err) {
+        console.error(err);
+    }
 }
 
 async function editAppointmentById(AppointmentId) {
@@ -97,17 +146,20 @@ async function editAppointmentById(AppointmentId) {
         .catch(err => console.error(err))
 }
 
-function createCards(dogs, appointments) {
+async function createCards(dogsData) {
     const cardList = document.getElementById('card-list');
-    cardList.innerHTML = ''; 
+    cardList.innerHTML = `<li class="card"><a href="./dog.html"><button id="add-dog-btn" >Add Dog</button></a></li>`;
 
-    dogs.forEach(dog => {
+    for (const dog of dogsData) {
         const card = document.createElement('div');
         card.classList.add('card');
         card.innerHTML = `
-            <h2>${dog.name}</h2>
+            <h2>${dog.dog_name}</h2>
         `;
-        const dogAppointments = appointments.filter(appointment => appointment.dogId === dog.id && !appointment.complete);
+        console.log(dog.id)
+        const appointments = await getAllAppointmentsByDogId(dog.id);
+        const dogAppointments = appointments.filter(appointment => !appointment.complete);
+
         if (dogAppointments.length > 0) {
             card.innerHTML += `
                 <h3>Appointments:</h3>
@@ -115,41 +167,59 @@ function createCards(dogs, appointments) {
                     ${dogAppointments.map(appointment => `
                         <li>
                             Date: ${appointment.date}, Service: ${appointment.service}, Time: ${appointment.time}
-                            <button onclick="deleteAppointment(${appointment.id})">Delete</button>
-                            <button onclick="editAppointment(${appointment.id})">Edit Appointment</button>
+                            <button onclick="deleteAppointmentById(${appointment.id})">Cancel Appointment</button>
+                            <a href="./editappointment.html?appointmentId=${appointment.id}&dogId=${dog.id}"><button>Edit Appointment</button></a>
                         </li>`).join('')}
                 </ul>
             `;
         } else {
             card.innerHTML += `
-                <button onclick="deleteDog(${dog.id})">Delete Dog</button>
-                <button onclick="scheduleAppointment(${dog.id})">Schedule Appointment</button>
+                <button onclick="deleteDogByDogId(${dog.id})">Remove Dog</button>
+                <a href="./scheduleappointment.html?dogId=${dog.id}"><button>Schedule Appointment</button></a>
             `;
         }
+
         cardList.appendChild(card);
-    });
+    }
 }
 
-function renderDogs(data, appointmentsData) {
-    if (!data) {
-        console.error("No data received for dogs");
-        return;
-    }
-
-    const dogs = Array.isArray(data) ? data : [data];
+async function createAdminCards(dogsData) {
     const cardList = document.getElementById('card-list');
     cardList.innerHTML = '';
 
-    dogs.forEach(dog => {
-        const card = createCards(dog, appointmentsData);
-        const cardListItem = document.createElement('li');
-        cardListItem.classList.add('card');
-        cardListItem.appendChild(card);
-        cardList.appendChild(cardListItem);
-    });
+    for (const dog of dogsData) {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.innerHTML = `
+            <h2>${dog.dog_name}</h2>
+        `;
+
+        const appointments = await getAllAppointmentsByDogId(dog.id);
+        const uncompletedAppointments = appointments.filter(appointment => !appointment.complete);
+
+        if (uncompletedAppointments.length > 0) {
+            card.innerHTML += `
+                <h3>Appointments:</h3>
+                <ul>
+                    ${uncompletedAppointments.map(appointment => `
+                        <li>
+                            Date: ${appointment.date}, Service: ${appointment.service}, Time: ${appointment.time}
+                            <button onclick="deleteAppointmentById(${appointment.id})">Cancel Appointment</button>
+                        
+                        </li>`).join('')}
+                </ul>
+            `;
+        } else {
+            card.innerHTML += `
+                <p>No appointments scheduled.</p>
+            `;
+        }
+
+        cardList.appendChild(card);
+    }
 }
 
 
-window.addEventListener("load", () => getAllDogsByUserId(userId));
-window.addEventListener(renderDogs())
+
+window.addEventListener("load", () => loadAppointments());
 logoutBtn.addEventListener("click", handleLogout)

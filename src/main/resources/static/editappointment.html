@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/editappointment.css" type="text/css">
+    <link rel="stylesheet" href="./css/scheduleappointment.css" type="text/css">
     <title>Document</title>
 </head>
 <body>
 
     <header class="header">
-        <a href="./login.html"><button id="login-btn">Login</button></a>
+        <a href="./login.html"><button id="login-btn">Logout</button></a>
         <p id="title">Jolly Roger Grooming</p>
         <p id="corner-name"></p>
     </header>
 
     <section id="body-section">
         <header id="body-section-header">
-            <p id="body-section-header-text">Edit your dog's appointment</p>
+            <p id="body-section-header-text">Schedule your dog's appointment</p>
         </header>
         <div id="body-section-body">
-            <input type="text" id="dog-name-input" class="body-section-body-input" placeholder="Service type">
-            <input type="text" id="breed-input" class="body-section-body-input" placeholder="Date">
-            <input type="text" id="weight-input" class="body-section-body-input" placeholder="Time">
+            <input type="text" id="service-type-input" class="body-section-body-input" placeholder="Service type">
+            <input type="text" id="date-input" class="body-section-body-input" placeholder="Date">
+            <input type="text" id="time-input" class="body-section-body-input" placeholder="Time">
             <select  id="preferd-groomer-select" class="body-section-body-input" placeholder="Time">
                 <option value="pick-a-groomer">Pick a groomer</option>
                 <option value="Jack">Jack</option>
@@ -32,9 +32,11 @@
             
         </div>
         <footer id="body-section-footer">
-            <a href="./home.html"><button id="submit-btn">Submit</button></a>
+            <button id="submit-btn">Submit</button>
         </footer>
     </section>
     
+    <script src="./javascript/editappointment.js"></script>
+
 </body>
 </html>

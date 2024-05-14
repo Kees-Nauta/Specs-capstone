@@ -25,7 +25,7 @@ public class AppointmentControllers {
         appointmentService.deleteAppointmentById(appointmentId);
     }
 
-    @DeleteMapping("/{dogId}")
+    @DeleteMapping("/dogs/{dogId}")
     public void deleteAppointmentByDogId(@PathVariable Long dogId){
         appointmentService.deleteAppointmentByDogId(dogId);
     }
@@ -40,14 +40,19 @@ public class AppointmentControllers {
         return appointmentService.getAppointmentById(appointmentId);
     }
 
-    @GetMapping("/dogs/{groomerName}")
-    public List<AppointmentDto> getAllAppointmentsByGroomerName(Long groomerName){
+    @GetMapping("/groomers/{groomerName}")
+    public List<AppointmentDto> getAllAppointmentsByGroomerName(@PathVariable Long groomerName){
         return appointmentService.getAllAppointmentsByGroomerName(String.valueOf(groomerName));
     }
 
     @GetMapping("/dogs/{dogId}")
-    public List<AppointmentDto> getAllAppointmentsByDogId(Long dogId){
+    public List<AppointmentDto> getAllAppointmentsByDogId(@PathVariable Long dogId){
         return appointmentService.getAllAppointmentsByDogId(dogId);
+    }
+
+    @GetMapping("/all")
+    public List<AppointmentDto> getAllAppointments(){
+        return appointmentService.getAllAppointments();
     }
 
 }
