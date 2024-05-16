@@ -1,0 +1,91 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #EED2CC
+}
+
+.header {
+    width: 100%;
+    background-color: #6C9A8B;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+#login-btn {
+    position: absolute;
+    top: 27px;
+    left: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+#title {
+    margin-top: 10px;
+    font-size: 24px;
+}
+
+#corner-name {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 9999;
+}
+
+
+
+#body-section {
+    margin-top: 20px;
+    background-color: #6C9A8B;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px; 
+    color: white;
+}
+
+#body-section-header {
+    font-size: 20px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.body-section-body-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    background-color: #EED2CC;
+    color: white;
+    border: none;
+    
+}
+
+#preferd-groomer-select {
+    cursor: pointer;
+}
+
+#body-section-footer {
+    margin-top: 20px;
+}
+
+#submit-btn {
+    padding: 10px 20px;
+    background-color: #EED2CC;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    #login-btn {
+        position: static;
+        margin-bottom: 20px;
+    }
+}

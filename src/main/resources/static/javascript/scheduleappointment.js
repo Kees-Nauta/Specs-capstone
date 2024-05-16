@@ -58,4 +58,29 @@ submitBtn.addEventListener("click", function() {
     console.log("Submit button clicked");
     scheduleAppointment();
 });
+
+async function getUserById(userId) {
+    
+    const response = await fetch(`${baseUrl}users/${userId}`, {
+        method: "GET",
+        headers: headers
+    });
+
+    if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+    } 
+
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+        const userData = await response.json();
+        const cornerName = document.getElementById('corner-name');
+        cornerName.textContent = userData.first_name;
+        console.log(userData.first_name)
+        return userData;
+    } else {
+        throw new Error("Invalid JSON response from server");
+    }
+}
+
+window.addEventListener("load", () => getUserById(userId));
 logoutBtn.addEventListener("click", handleLogout)

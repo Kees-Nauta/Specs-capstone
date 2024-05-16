@@ -1,0 +1,65 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    width: 100%;
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+#login-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+#title {
+    margin-top: 10px;
+    font-size: 24px;
+}
+
+#body-section {
+    margin-top: 20px;
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+}
+
+#body-section-header {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.body-section-body-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+#body-section-footer {
+    margin-top: 20px;
+}
+
+#submit-btn {
+    padding: 10px 20px;
+}
+
+@media (max-width: 600px) {
+    #login-btn {
+        position: static;
+        margin-bottom: 20px;
+    }
+}

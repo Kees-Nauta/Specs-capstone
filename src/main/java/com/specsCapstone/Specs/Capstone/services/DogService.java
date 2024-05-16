@@ -4,6 +4,7 @@ import com.specsCapstone.Specs.Capstone.dtos.DogDto;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface DogService {
     @Transactional
@@ -13,4 +14,7 @@ public interface DogService {
     void deleteDogById(Long dogId);
 
     List<DogDto> getAllDogsByUserId(Long userId);
+
+    @Transactional
+    Optional<DogDto> getDogById(Long dogId);
 }

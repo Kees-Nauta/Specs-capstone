@@ -1,8 +1,6 @@
 package com.specsCapstone.Specs.Capstone.services;
 
-import com.specsCapstone.Specs.Capstone.dtos.AppointmentDto;
 import com.specsCapstone.Specs.Capstone.dtos.DogDto;
-import com.specsCapstone.Specs.Capstone.entites.Appointment;
 import com.specsCapstone.Specs.Capstone.entites.Dog;
 import com.specsCapstone.Specs.Capstone.entites.User;
 import com.specsCapstone.Specs.Capstone.repositories.AppointmentRepository;
@@ -52,5 +50,14 @@ public class DogServiceImpl implements DogService {
         }
         return Collections.emptyList();
     }
+
+    @Override
+    @Transactional
+    public Optional<DogDto> getDogById(Long dogId) {
+        Optional<Dog> dogOptional = dogRepository.findById(dogId);
+        return dogOptional.map(DogDto::new);
+    }
+
+
 
 }
