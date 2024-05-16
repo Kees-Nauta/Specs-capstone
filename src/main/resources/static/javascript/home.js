@@ -68,7 +68,9 @@ async function getAllAppointments() {
         }
         const data = await response.json();
         createAdminCards(data)
+        console.log(data)
         return data;
+        
     } catch (error) {
         console.error(error);
         return [];
@@ -210,6 +212,7 @@ async function createAdminCards(appointmentsData) {
     cardList.innerHTML = '';
 
     for (const appointmentData of appointmentsData) {
+        console.log(appointmentData)
         const dogId = appointmentData.dog_id;
         const dog = await getDogByDogId(dogId);
 

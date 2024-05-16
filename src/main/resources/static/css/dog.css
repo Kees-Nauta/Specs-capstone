@@ -6,7 +6,7 @@ body {
     height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #EED2CC
+    background-color: whitesmoke
 }
 
 .header {
@@ -62,7 +62,7 @@ body {
     margin-bottom: 10px;
     box-sizing: border-box;
     background-color: #EED2CC;
-    color: white;
+    color: #757575;
     border: none;
     
 }
@@ -71,14 +71,16 @@ body {
     cursor: pointer;
 }
 
+
+
 #body-section-footer {
     margin-top: 20px;
 }
 
 #submit-btn {
     padding: 10px 20px;
-    background-color: #EED2CC;
-    color: white;
+    background-color: #fff1d0;
+    color: #757575;
     border: none;
     cursor: pointer;
 }
